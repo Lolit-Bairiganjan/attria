@@ -1,0 +1,112 @@
+# ==========================================
+# 1. Environments & Package Managers
+# ==========================================
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# 2. Python & Bytecode
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ==========================================
+# 3. Data & Large Files (Never push raw datasets)
+# ==========================================
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+*.csv
+*.tsv
+*.parquet
+*.h5
+*.hdf5
+*.tgz
+*.tar.gz
+*.zip
+
+# ==========================================
+# 4. Model Artifacts & Checkpoints
+# ==========================================
+# Serialized models are often too large for Git and should be tracked via releases/S3/MLflow
+models/*.joblib
+models/*.pkl
+models/*.pt
+models/*.pth
+models/*.onnx
+!models/.gitkeep
+checkpoints/
+
+# ==========================================
+# 5. Frontend / React Build Artifacts
+# ==========================================
+frontend/dist/
+frontend/build/
+.cache/
+
+# ==========================================
+# 6. Credentials, Keys & Local Configurations
+# ==========================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ==========================================
+# 7. Jupyter Notebooks & Experiment Tracking
+# ==========================================
+.ipynb_checkpoints/
+mlruns/
+wandb/
+lightning_logs/
+
+# ==========================================
+# 8. Testing & Code Quality
+# ==========================================
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ==========================================
+# 9. IDE & Operating System Files
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
