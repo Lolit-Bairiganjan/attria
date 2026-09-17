@@ -3,6 +3,11 @@ from pathlib import Path
 import pandas as pd
 from kagglehub import KaggleDatasetAdapter
 from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
 
 def save_csv(df: pd.DataFrame, stage: str = "processed"):
     if stage == "raw":
@@ -73,6 +78,33 @@ def split_data(
 
     return X_train, X_test, y_train, y_test
 
+def build_preprocessor(num_cols: list[str], cat_cols: list[str]) -> ColumnTransformer:
+
+    # Numeric Pipeline
+    num_pipeline = Pipeline(
+        steps=[
+            ("imputer", SimpleImputer(strategy="median")),
+            ("scaler", StandardScaler()),
+        ]
+    )
+
+    # Categorical Pipeline
+    cat_pipeline = Pipeline(
+        steps=[
+            ("imputer", SimpleImputer(strategy="most_frequent")),
+            ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+        ]
+    )
+
+    # Combine both in Column Transformer
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ("num", num_pipeline, num_cols),
+            ("cat", cat_pipeline, cat_cols),
+        ]
+    )
+
+    return preprocessor
 
 # Numerical features (to be scaled)
 NUM_COLS = ["tenure", "MonthlyCharges", "TotalCharges"]
@@ -104,5 +136,3 @@ if __name__ == "__main__":
         "WA_Fn-UseC_-Telco-Customer-Churn.csv",
     )
 
-    save_csv(df, "raw")
-    X_train, X_test, y_train, y_test = split_data(df)
