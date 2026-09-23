@@ -41,3 +41,5 @@ if __name__ == "__main__":
 
     print("\n--- Classification Report ---\n")
     print(classification_report(y_test, y_pred))
+
+    y_pred_proba = model.predict_proba(X_test)[:, 1]
