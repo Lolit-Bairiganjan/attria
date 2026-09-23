@@ -1,7 +1,6 @@
 import kagglehub
 from pathlib import Path
 import pandas as pd
-from kagglehub import KaggleDatasetAdapter
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -27,7 +26,7 @@ def save_csv(df: pd.DataFrame, stage: str = "processed"):
                 / "processed"
                 / "cleaned_telco.csv"
         )
-        RAW_DATA_DIR.mkdir(parents = True, exist_ok = True)
+        PROCESSED_FILE_PATH.parent.mkdir(parents = True, exist_ok = True)
 
         df.to_csv(PROCESSED_FILE_PATH, index=False)
 
@@ -128,11 +127,4 @@ CAT_COLS = [
     "PaperlessBilling",
     "PaymentMethod",
 ]
-
-if __name__ == "__main__":
-    df = kagglehub.dataset_load(
-        KaggleDatasetAdapter.PANDAS,
-        "blastchar/telco-customer-churn",
-        "WA_Fn-UseC_-Telco-Customer-Churn.csv",
-    )
 
