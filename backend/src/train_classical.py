@@ -2,7 +2,7 @@ from pipeline import NUM_COLS, CAT_COLS, build_preprocessor, clean_data, save_cs
 from kagglehub import dataset_load, KaggleDatasetAdapter, kagglehub
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, roc_auc_score
 
 
 if __name__ == "__main__":
@@ -41,5 +41,5 @@ if __name__ == "__main__":
 
     print("\n--- Classification Report ---\n")
     print(classification_report(y_test, y_pred))
-
     y_pred_proba = model.predict_proba(X_test)[:, 1]
+    print(f"ROC-AUC Score: {roc_auc_score(y_test, y_pred_proba):.4f}")
